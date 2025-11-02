@@ -37,9 +37,21 @@
       margin-bottom: 2rem;
     }
 
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      white-space: nowrap;
+    }
+
     .word-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1rem;
       margin: 2rem 0;
       padding: 0;
@@ -48,12 +60,24 @@
 
     .word-list li {
       background: #e8eefc;
-      border-radius: 8px;
-      padding: 0.75rem;
-      text-align: center;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
       font-weight: 600;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
       box-shadow: inset 0 0 0 1px rgba(34, 51, 90, 0.05);
+    }
+
+    .word-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      cursor: pointer;
+    }
+
+    .word-item input {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: #6b8afd;
     }
 
     section {
@@ -80,6 +104,58 @@
       margin-top: 3rem;
     }
 
+    .notes-section {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    textarea {
+      min-height: 120px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(34, 51, 90, 0.15);
+      font: inherit;
+      resize: vertical;
+      background: #f9faff;
+      color: inherit;
+    }
+
+    textarea:focus {
+      outline: 3px solid rgba(107, 138, 253, 0.35);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      background: #6b8afd;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(107, 138, 253, 0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover,
+    button:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px rgba(107, 138, 253, 0.3);
+    }
+
+    button:focus {
+      outline: 3px solid rgba(107, 138, 253, 0.35);
+    }
+
     @media (prefers-color-scheme: dark) {
       body {
         background: #101624;
@@ -101,6 +177,18 @@
         border-left-color: #92a6ff;
       }
 
+      textarea {
+        background: #1f2b4a;
+        border-color: rgba(146, 166, 255, 0.35);
+        color: #f3f5fb;
+      }
+
+      button {
+        background: #92a6ff;
+        color: #0f1830;
+        box-shadow: 0 8px 18px rgba(146, 166, 255, 0.25);
+      }
+
       footer {
         color: #9aa5c0;
       }
@@ -117,24 +205,114 @@
     <section>
       <h2>Word List</h2>
       <ul class="word-list">
-        <li>Desperate</li>
-        <li>Museum</li>
-        <li>Until</li>
-        <li>Eclipse</li>
-        <li>Achieve</li>
-        <li>Thief</li>
-        <li>Elephant</li>
-        <li>Exercise</li>
-        <li>Freckles</li>
-        <li>Journey</li>
-        <li>Library</li>
-        <li>Hospital</li>
-        <li>Biscuit</li>
-        <li>Scissors</li>
-        <li>Scarecrow</li>
-        <li>Coward</li>
-        <li>Dinosaur</li>
-        <li>Sandwich</li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Desperate" />
+            <span>Desperate</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Museum" />
+            <span>Museum</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Until" />
+            <span>Until</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Eclipse" />
+            <span>Eclipse</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Achieve" />
+            <span>Achieve</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Thief" />
+            <span>Thief</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Elephant" />
+            <span>Elephant</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Exercise" />
+            <span>Exercise</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Freckles" />
+            <span>Freckles</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Journey" />
+            <span>Journey</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Library" />
+            <span>Library</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Hospital" />
+            <span>Hospital</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Biscuit" />
+            <span>Biscuit</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Scissors" />
+            <span>Scissors</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Scarecrow" />
+            <span>Scarecrow</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Coward" />
+            <span>Coward</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Dinosaur" />
+            <span>Dinosaur</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Sandwich" />
+            <span>Sandwich</span>
+          </label>
+        </li>
       </ul>
     </section>
 
@@ -162,6 +340,17 @@
       </article>
     </section>
 
+    <section class="notes-section" aria-labelledby="notes-heading">
+      <h2 id="notes-heading">Notes &amp; Achievements</h2>
+      <p>Keep track of tricky words, bonus challenges, or proud moments from today's practice.</p>
+      <label for="practice-notes" class="visually-hidden">Practice notes</label>
+      <textarea id="practice-notes" placeholder="Example: Mastered 'biscuit' without help today!"></textarea>
+    </section>
+
+    <div class="actions">
+      <button type="button" id="email-results">Email Results</button>
+    </div>
+
     <footer>
       You can print this page or bookmark it for quick spelling practice sessions.
     </footer>
@@ -175,6 +364,38 @@
         field.setAttribute("autocapitalize", "off");
         field.setAttribute("spellcheck", "false");
       });
+
+      const emailButton = document.getElementById("email-results");
+      if (emailButton) {
+        emailButton.addEventListener("click", () => {
+          const checkboxes = Array.from(document.querySelectorAll(".word-checkbox"));
+          const masteredWords = checkboxes
+            .filter((checkbox) => checkbox.checked)
+            .map((checkbox) => checkbox.dataset.word);
+          const practicingWords = checkboxes
+            .filter((checkbox) => !checkbox.checked)
+            .map((checkbox) => checkbox.dataset.word);
+
+          const notesField = document.getElementById("practice-notes");
+          const notes = notesField ? notesField.value.trim() : "";
+
+          const bodyLines = [
+            "Spelling Practice Results",
+            "",
+            `Mastered Words: ${masteredWords.length ? masteredWords.join(", ") : "None yet"}`,
+            `Still Practicing: ${practicingWords.length ? practicingWords.join(", ") : "All mastered!"}`,
+          ];
+
+          if (notes) {
+            bodyLines.push("", "Notes:", notes);
+          }
+
+          const subject = "Spelling Practice Results";
+          const body = bodyLines.join("\n");
+          const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          window.location.href = mailtoUrl;
+        });
+      }
     });
   </script>
 </body>
