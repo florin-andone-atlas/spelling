@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" autocapitalize="off" autocorrect="off" spellcheck="false">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spelling Practice Helper</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f5f7fa;
+      color: #1f2a44;
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(31, 42, 68, 0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #22335a;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      white-space: nowrap;
+    }
+
+    .word-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .word-list li {
+      background: #e8eefc;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: inset 0 0 0 1px rgba(34, 51, 90, 0.05);
+    }
+
+    .word-list li.locked {
+      background: #d8f0e0;
+      box-shadow: inset 0 0 0 1px rgba(34, 90, 51, 0.15);
+    }
+
+    .word-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      cursor: pointer;
+    }
+
+    .word-item input {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: #6b8afd;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    .activity {
+      border-left: 4px solid #6b8afd;
+      padding: 1rem 1.5rem;
+      background: #f6f8ff;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .activity h3 {
+      margin-top: 0;
+      color: #394b86;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #66738b;
+      margin-top: 3rem;
+    }
+
+    .notes-section {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    textarea {
+      min-height: 120px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(34, 51, 90, 0.15);
+      font: inherit;
+      resize: vertical;
+      background: #f9faff;
+      color: inherit;
+    }
+
+    textarea:focus {
+      outline: 3px solid rgba(107, 138, 253, 0.35);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      background: #6b8afd;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(107, 138, 253, 0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover,
+    button:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px rgba(107, 138, 253, 0.3);
+    }
+
+    button:focus {
+      outline: 3px solid rgba(107, 138, 253, 0.35);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #101624;
+        color: #e9ecf4;
+      }
+
+      main {
+        background: #162038;
+        box-shadow: none;
+      }
+
+      .word-list li {
+        background: #233055;
+        color: #f3f5fb;
+      }
+
+      .word-list li.locked {
+        background: #28403a;
+        box-shadow: inset 0 0 0 1px rgba(146, 255, 197, 0.15);
+      }
+
+      .activity {
+        background: #1f2b4a;
+        border-left-color: #92a6ff;
+      }
+
+      textarea {
+        background: #1f2b4a;
+        border-color: rgba(146, 166, 255, 0.35);
+        color: #f3f5fb;
+      }
+
+      button {
+        background: #92a6ff;
+        color: #0f1830;
+        box-shadow: 0 8px 18px rgba(146, 166, 255, 0.25);
+      }
+
+      footer {
+        color: #9aa5c0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Spelling Practice Helper</h1>
+    <p class="intro">
+      Use this page to help your 10-year-old practice spelling. Try each activity and check off the words as you master them!
+    </p>
+
+    <section>
+      <h2>Word List</h2>
+      <ul class="word-list">
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Desperate" />
+            <span>Desperate</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Museum" />
+            <span>Museum</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Until" />
+            <span>Until</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Eclipse" />
+            <span>Eclipse</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Achieve" />
+            <span>Achieve</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Thief" />
+            <span>Thief</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Elephant" />
+            <span>Elephant</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Exercise" />
+            <span>Exercise</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Freckles" />
+            <span>Freckles</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Journey" />
+            <span>Journey</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Library" />
+            <span>Library</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Hospital" />
+            <span>Hospital</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Biscuit" />
+            <span>Biscuit</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Scissors" />
+            <span>Scissors</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Scarecrow" />
+            <span>Scarecrow</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Coward" />
+            <span>Coward</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Dinosaur" />
+            <span>Dinosaur</span>
+          </label>
+        </li>
+        <li>
+          <label class="word-item">
+            <input class="word-checkbox" type="checkbox" data-word="Sandwich" />
+            <span>Sandwich</span>
+          </label>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Fun Practice Ideas</h2>
+
+      <article class="activity">
+        <h3>Look, Say, Cover, Write, Check</h3>
+        <p>Read each word aloud, cover it with your hand, write it from memory, and then check your spelling. Repeat until you get each word right twice.</p>
+      </article>
+
+      <article class="activity">
+        <h3>Flashcard Challenge</h3>
+        <p>Make flashcards with the words on one side and clues or sentences on the other. Shuffle them, read the clue, and spell the word aloud.</p>
+      </article>
+
+      <article class="activity">
+        <h3>Story Time</h3>
+        <p>Write a short story that uses every word in the list. Draw pictures to match each part of the story for extra fun.</p>
+      </article>
+
+      <article class="activity">
+        <h3>Mini Spelling Bee</h3>
+        <p>Take turns pronouncing a word while your child spells it out loud. Keep score and offer a high-five or sticker for each perfect round!</p>
+      </article>
+    </section>
+
+    <section class="notes-section" aria-labelledby="notes-heading">
+      <h2 id="notes-heading">Notes &amp; Achievements</h2>
+      <p>Keep track of tricky words, bonus challenges, or proud moments from today's practice.</p>
+      <label for="practice-notes" class="visually-hidden">Practice notes</label>
+      <textarea id="practice-notes" placeholder="Example: Mastered 'biscuit' without help today!"></textarea>
+    </section>
+
+    <div class="actions">
+      <button type="button" id="email-results">Email Results</button>
+    </div>
+
+    <footer>
+      You can print this page or bookmark it for quick spelling practice sessions.
+    </footer>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fields = document.querySelectorAll("input, textarea");
+      fields.forEach((field) => {
+        field.setAttribute("autocomplete", "off");
+        field.setAttribute("autocorrect", "off");
+        field.setAttribute("autocapitalize", "off");
+        field.setAttribute("spellcheck", "false");
+      });
+
+      const checkboxes = Array.from(document.querySelectorAll(".word-checkbox"));
+
+      checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          checkbox.dataset.locked = "true";
+          const listItem = checkbox.closest("li");
+          if (listItem) {
+            listItem.classList.add("locked");
+          }
+        }
+
+        checkbox.addEventListener("change", () => {
+          if (checkbox.dataset.locked === "true" && !checkbox.checked) {
+            checkbox.checked = true;
+            return;
+          }
+
+          if (checkbox.checked) {
+            checkbox.dataset.locked = "true";
+            const listItem = checkbox.closest("li");
+            if (listItem) {
+              listItem.classList.add("locked");
+            }
+          }
+        });
+
+        checkbox.addEventListener("click", (event) => {
+          if (checkbox.dataset.locked === "true") {
+            checkbox.checked = true;
+            event.preventDefault();
+          }
+        });
+
+        checkbox.addEventListener("keydown", (event) => {
+          if (
+            checkbox.dataset.locked === "true" &&
+            (event.key === " " || event.key === "Spacebar" || event.key === "Enter")
+          ) {
+            event.preventDefault();
+          }
+        });
+      });
+
+      const emailButton = document.getElementById("email-results");
+      if (emailButton) {
+        emailButton.addEventListener("click", () => {
+          const masteredWords = checkboxes
+            .filter((checkbox) => checkbox.checked)
+            .map((checkbox) => checkbox.dataset.word);
+          const practicingWords = checkboxes
+            .filter((checkbox) => !checkbox.checked)
+            .map((checkbox) => checkbox.dataset.word);
+
+          const notesField = document.getElementById("practice-notes");
+          const notes = notesField ? notesField.value.trim() : "";
+
+          const bodyLines = [
+            "Spelling Practice Results",
+            "",
+            `Mastered Words: ${masteredWords.length ? masteredWords.join(", ") : "None yet"}`,
+            `Still Practicing: ${practicingWords.length ? practicingWords.join(", ") : "All mastered!"}`,
+          ];
+
+          if (notes) {
+            bodyLines.push("", "Notes:", notes);
+          }
+
+          const subject = "Spelling Practice Results";
+          const body = bodyLines.join("\n");
+          const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          window.location.href = mailtoUrl;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
