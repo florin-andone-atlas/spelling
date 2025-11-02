@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" autocapitalize="off" autocorrect="off" spellcheck="false">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -166,5 +166,16 @@
       You can print this page or bookmark it for quick spelling practice sessions.
     </footer>
   </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fields = document.querySelectorAll("input, textarea");
+      fields.forEach((field) => {
+        field.setAttribute("autocomplete", "off");
+        field.setAttribute("autocorrect", "off");
+        field.setAttribute("autocapitalize", "off");
+        field.setAttribute("spellcheck", "false");
+      });
+    });
+  </script>
 </body>
 </html>
