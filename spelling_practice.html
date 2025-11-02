@@ -67,6 +67,11 @@
       box-shadow: inset 0 0 0 1px rgba(34, 51, 90, 0.05);
     }
 
+    .word-list li.locked {
+      background: #d8f0e0;
+      box-shadow: inset 0 0 0 1px rgba(34, 90, 51, 0.15);
+    }
+
     .word-item {
       display: flex;
       align-items: center;
@@ -170,6 +175,11 @@
       .word-list li {
         background: #233055;
         color: #f3f5fb;
+      }
+
+      .word-list li.locked {
+        background: #28403a;
+        box-shadow: inset 0 0 0 1px rgba(146, 255, 197, 0.15);
       }
 
       .activity {
@@ -365,10 +375,52 @@
         field.setAttribute("spellcheck", "false");
       });
 
+      const checkboxes = Array.from(document.querySelectorAll(".word-checkbox"));
+
+      checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          checkbox.dataset.locked = "true";
+          const listItem = checkbox.closest("li");
+          if (listItem) {
+            listItem.classList.add("locked");
+          }
+        }
+
+        checkbox.addEventListener("change", () => {
+          if (checkbox.dataset.locked === "true" && !checkbox.checked) {
+            checkbox.checked = true;
+            return;
+          }
+
+          if (checkbox.checked) {
+            checkbox.dataset.locked = "true";
+            const listItem = checkbox.closest("li");
+            if (listItem) {
+              listItem.classList.add("locked");
+            }
+          }
+        });
+
+        checkbox.addEventListener("click", (event) => {
+          if (checkbox.dataset.locked === "true") {
+            checkbox.checked = true;
+            event.preventDefault();
+          }
+        });
+
+        checkbox.addEventListener("keydown", (event) => {
+          if (
+            checkbox.dataset.locked === "true" &&
+            (event.key === " " || event.key === "Spacebar" || event.key === "Enter")
+          ) {
+            event.preventDefault();
+          }
+        });
+      });
+
       const emailButton = document.getElementById("email-results");
       if (emailButton) {
         emailButton.addEventListener("click", () => {
-          const checkboxes = Array.from(document.querySelectorAll(".word-checkbox"));
           const masteredWords = checkboxes
             .filter((checkbox) => checkbox.checked)
             .map((checkbox) => checkbox.dataset.word);
