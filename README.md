@@ -6,6 +6,9 @@ This repository contains a single static page, `spelling_practice.html`, that he
 
 You can open the HTML file directly in any modern browser. The instructions below cover a few common options, including Safari.
 
+### Online Preview
+- <https://htmlpreview.github.io?https://raw.githubusercontent.com/florin-andone-atlas/spelling/blob/try1/Day1.html>
+
 ### macOS (Safari)
 1. Download or clone this repository to your Mac.
 2. Open Finder and navigate to the folder that contains `spelling_practice.html`.
